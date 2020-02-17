@@ -1,0 +1,17 @@
+0 silly argv { _: [ 'add' ],
+0 silly argv   scope: '@renee-cohen/my-design-system-form',
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '3.20.2',
+0 silly argv   '$0':
+0 silly argv    'C:\\Users\\renee\\AppData\\Roaming\\npm\\node_modules\\lerna\\cli.js',
+0 silly argv   pkg: '@renee-cohen/design-system-button' }
+1 notice cli v3.20.2
+2 verbose rootPath C:\Users\renee\Technologies\monorepo\my-design-system
+3 info versioning independent
+4 error FetchError: request to https://registry.npmjs.org/@renee-cohen%2fdesign-system-button failed, reason: getaddrinfo ENOTFOUND registry.npmjs.org registry.npmjs.org:443
+4 error     at ClientRequest.req.on.err (C:\Users\renee\Technologies\monorepo\my-design-system\node_modules\node-fetch-npm\src\index.js:68:14)
+4 error     at ClientRequest.emit (events.js:198:13)
+4 error     at TLSSocket.socketErrorListener (_http_client.js:392:9)
+4 error     at TLSSocket.emit (events.js:198:13)
+4 error     at emitErrorNT (internal/streams/destroy.js:91:8)
+4 error     at emitErrorAndCloseNT (internal/streams/destroy.js:59:3)
