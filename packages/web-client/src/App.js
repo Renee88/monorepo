@@ -1,18 +1,12 @@
 import React from 'react';
-import ReactDOM from "react-dom";
-import Rooms from './js/components/Rooms'
-import Users from './js/components/Users'
-import Talks from './js/components/Talks'
-
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from './js/components/Routes/Routes'
 const App = () => {
     return (
-        <div>
-            
-        </div>
+        <Router>
+            <Routes />
+        </Router>
     );
 };
 
 export default App;
-
-const wrapper = document.getElementById("root");
-wrapper ? ReactDOM.render(<App />, wrapper) : false;

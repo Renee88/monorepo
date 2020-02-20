@@ -1,5 +1,13 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const resolve = require('path').resolve;
+const path = require('path')
+
 module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: resolve('public'),
+    filename: 'main.js'
+  },
     module: {
       rules: [
         {
@@ -16,6 +24,22 @@ module.exports = {
               loader: "html-loader"
             }
           ]
+        },
+        {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[name].[ext]',
+                outputPath: 'fonts/'
+              }
+            }
+          ]
         }
       ]
     },
@@ -24,5 +48,12 @@ module.exports = {
         template: "./src/index.html",
         filename: "./index.html"
       })
-    ]
+    ],
+    devServer: {
+      historyApiFallback: true,
+      contentBase: './',
+      hot: true,
+      compress: true,
+      port: 3000
+    }
   };

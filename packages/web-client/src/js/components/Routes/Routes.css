@@ -1,0 +1,17 @@
+body{
+    margin: 0;
+}
+
+#main-bar-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    height: 8vh;
+    align-items: center;
+    box-shadow: 0 0 3px 2px #87919E;
+}
+
+#logo{
+    font-family: 'Akronim', cursive;
+    font-size: 40px;
+}
