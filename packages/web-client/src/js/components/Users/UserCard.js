@@ -1,13 +1,16 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, CardActionArea, Typography } from '@material-ui/core'
-import ScrollToBottom from 'react-scroll-to-bottom'
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 
-
-const UserCard = ({ user, classes, displayChosenUser }) => {
+type UserCardTypes = {
+    user: Object,
+    classes: Object,
+    displayChosenUser: Function
+}
+const UserCard = ({classes, user, displayChosenUser}: UserCardTypes ) => {
     return (
-        <Card className={classes.card} onClick={displayChosenUser(user.email)}>
-            <CardActionArea>
+        <Card className={classes.card}>
+            <CardActionArea onClick={displayChosenUser(user.id)}>
                 <CardContent className={classes.root}>
                     <div className={classes.userDetails}>
                         <CardMedia

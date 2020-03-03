@@ -1,40 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import {Card, CardContent, CardActionArea, Typography } from '@material-ui/core';
+import { Card, CardContent, CardActionArea, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import ScrollToBottom from 'react-scroll-to-bottom'
 import Talk from './Talk'
 import './Talks.css'
 import axios from 'axios';
+import Master from '../Master';
 
-const useStyles = makeStyles(theme =>({
+type ChosenTalkType={
+    name: string,
+    transcript: string,
+    youTubeID: string
+}
+
+const useStyles = makeStyles(theme => ({
     video: {
         display: 'flex',
         height: '390',
         width: '640',
-        margin:'auto'
+        margin: 'auto',
+        playerVars: {
+            autoplay: 1
+        }
     },
-    talk:{
+    talk: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        color:'white',
+        color: 'white',
         background: 'linear-gradient(45deg,#584FEA,  #3B79EA)',
         zIndex: '-1'
     },
-    master:{
+    master: {
         backgroundColor: '#DFE0E2'
     },
-    paper:{
+    paper: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignContent: 'center'
     },
-    title:{
+    title: {
         textAlign: 'center'
+    },
+    talkCard: {
+        margin: '5px'
     }
+
 }))
 
 const Talks = () => {
@@ -46,40 +59,26 @@ const Talks = () => {
 
     useEffect(() => {
         axios.get('http://localhost:4000/talks')
-        .then(function(talks){
-            talks = talks.data
-            setTalks(talks)
-        })
+            .then(function (talks: Object) {
+                talks = talks.data
+                setTalks(talks)
+            })
     }, [])
 
     const displayChosenTalk = (id) => () => {
-        let chosenTalk = talks.find(talk => talk.youTubeID === id)
+        let chosenTalk: ?ChosenTalkType = talks.find(talk => talk.youTubeID === id)
         setChosenTalk(chosenTalk)
     }
 
     return (
-        <ScrollToBottom>
-            <Grid container className='master-detail-container' direction='row' alignItems='stretch'>
-                <Grid item sm={3} className={classes.master}>
-                    {talks.map((talk) =>
-                        <Card key={talk.youTubeID} className='detail-card' onClick={displayChosenTalk(talk.youTubeID)}>
-                            <CardActionArea>
-                                <CardContent>
-                                    <Typography>
-                                        {talk.name}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>)}
-                </Grid>
-
-                <Grid item sm={9} className={classes.talk} >
-                    <Paper square >
-                        <Talk chosenTalk={chosenTalk} classes={classes} />
-                    </Paper>
-                </Grid>
-            </Grid>
-        </ScrollToBottom>
+        <div className='master-detail-container' >
+                <Master state={{ master: talks, type: 'Talks' }} classes={classes} displayChosenTalk={displayChosenTalk} />
+            <div className={classes.detail}>
+                <Paper square >
+                    <Talk chosenTalk={chosenTalk} classes={classes} />
+                </Paper>
+            </div>
+        </div>
     );
 };
 

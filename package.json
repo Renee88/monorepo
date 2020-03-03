@@ -2,7 +2,7 @@
   "name": "monorepo",
   "private": true,
   "workspaces": [
-     "packages/*"
+    "packages/*"
   ],
   "version": "0.0.0",
   "main": "index.js",
@@ -10,6 +10,7 @@
   "author": "Your Name <you@example.com>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/preset-flow": "^7.8.3",
     "lerna": "^3.20.2"
   }
 }

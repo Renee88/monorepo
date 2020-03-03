@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core'
-import ScrollToBottom from 'react-scroll-to-bottom'
 import Grid from '@material-ui/core/Grid'
+import Master from '../Master'
 import Paper from '@material-ui/core/Paper'
 import User from './User'
 import UserCard from './UserCard'
 import './Users.css'
+
+type ChosenUserType = {
+    name: string,
+    picture: string,
+    email: string,
+    age: number,
+    dogs: Array<Object>,
+    online: number,
+    lifeMoto: Array<string>
+}
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -18,8 +28,9 @@ const useStyles = makeStyles(theme => ({
     card: {
         margin: 5
     },
-    master:{
-        backgroundColor: '#DFE0E2'
+    scroll: {
+        backgroundColor: '#DFE0E2',
+        height: '90vh'
     },
     cover: {
         display: 'inline-block',
@@ -55,38 +66,41 @@ const Users = () => {
     const classes = useStyles()
     const [users, setUsers] = useState([])
     const [chosenUser, setChosenUser] = useState({})
+    const [page, setPage] = useState(1)
 
     useEffect(() => {
-        axios.get('http://localhost:4000/users')
+        axios.get(`http://localhost:4000/users/${page}`)
             .then(function (users) {
                 users.data.map(user => user.online = Math.floor(Math.random() * 2))
                 setUsers(users.data)
             })
     }, [])
 
-    const displayChosenUser = (email) => () => {
-        let chosenUser = users.find(user => user.email === email)
-        axios.get('http://loremricksum.com/api/?paragraphs=3&quotes=2')
-            .then(function (lifeMoto) {
-                chosenUser.lifeMoto = lifeMoto.data.data
-                setChosenUser(chosenUser)
+    const displayChosenUser = (id: number) => () => {
+        console.log(id)
+        axios.get(`http://localhost:4000/user/${id}`).then(function (chosenUser: any) {
+            let user: Object = chosenUser.data
+            console.log(chosenUser)
+            console.log(users)
+            axios.get('http://loremricksum.com/api/?paragraphs=3&quotes=2').then(function(lifeMoto: any){
+                user.lifeMoto = lifeMoto.data.data
+                setChosenUser(user)
             })
+        })
+        
     }
 
+
     return (
-        
-            <ScrollToBottom>
-                <Grid container className='master-detail-container' direction='row' alignItems='stretch'>
-                    <Grid item sm={3} className={classes.master}>
-                        {users.map((user, i) => <UserCard key={i} user={user} classes={classes} displayChosenUser={displayChosenUser} />)}
-                    </Grid>
-                    <Grid item sm={9} className={classes.detail}>
-                        <Paper className={chosenUser.name ? classes.userPage : null}>
-                            <User chosenUser={chosenUser} />
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </ScrollToBottom>
+        <div className='master-detail-container' >
+            <Master state={{ master: users, type: 'Users' }} classes={classes} displayChosenUser={displayChosenUser} />
+            <div className={classes.detail}>
+                <Paper className={chosenUser.name ? classes.userPage : null}>
+                    <User chosenUser={chosenUser} />
+                </Paper>
+            </div>
+        </div>
+
     );
 };
 

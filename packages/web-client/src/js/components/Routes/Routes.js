@@ -22,7 +22,7 @@ const Routes = () => {
     const [open, setOpen] = useState(false)
 
     return (
-        <div>
+        <div id ="main-container">
             <div id="main-bar-container">
                 <MenuIcon onClick={() => setOpen(true)} />
                 <Link to='/home' className={classes.link}><div id="logo">My Monorepo</div></Link>

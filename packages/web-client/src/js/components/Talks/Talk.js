@@ -1,7 +1,8 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 
-const Talk = ({ chosenTalk: { name, youTubeID }, classes }) => {
+
+const Talk = ({ chosenTalk: { name, youTubeID }, classes }: Object) => {
     return (
         (name && youTubeID) ?
             <div className={classes.paper}>

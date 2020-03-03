@@ -1,6 +1,14 @@
 import React from 'react';
 
-const Room = ({chosenRoom:{name}}) => {
+type ChosenRoomDestructure={
+    chosenRoom:{
+    name: string,
+     id: number, 
+     numOfPeople: number
+    }
+}
+
+const Room = ({chosenRoom:{name}}: ChosenRoomDestructure) => {
     return (
         <div>
             {name}

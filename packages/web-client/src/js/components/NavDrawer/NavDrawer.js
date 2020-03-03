@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-const NavDrawer = ({ open, setOpen }) => {
+const NavDrawer = ({ open, setOpen }: Object) => {
   const classes = useStyles();
 
   const toggleDrawer = (open) => event => {
@@ -38,24 +38,22 @@ const NavDrawer = ({ open, setOpen }) => {
     >
       <List>
         {['Users', 'Talks', 'Rooms'].map((text, index) => (
-            <ListItem key={text} onClick = {()=>{window.location.replace(`/${text}`)}}>
-              <ListItemIcon>{text === 'Users' ? <AccountCircleIcon /> :
-                text === 'Talks' ? <QuestionAnswerIcon /> :
-                  <PeopleIcon />}</ListItemIcon>
-              <ListItemText primary={text} className='pages-names' />
-            </ListItem>
+          <ListItem key={text} onClick={() => { window.location.replace(`/${text}`) }}>
+            <ListItemIcon>{text === 'Users' ? <AccountCircleIcon /> :
+              text === 'Talks' ? <QuestionAnswerIcon /> :
+                <PeopleIcon />}</ListItemIcon>
+            <ListItemText primary={text} className='pages-names' />
+          </ListItem>
         ))}
       </List>
     </div>
   );
 
   return (
-    <div>
 
-      <Drawer open={open} onClose={toggleDrawer(false)} >
-        {sideList('left')}
-      </Drawer>
-    </div>
+    <Drawer open={open} onClose={toggleDrawer(false)} >
+      {sideList('left')}
+    </Drawer>
   );
 };
 

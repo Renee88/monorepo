@@ -6,6 +6,13 @@ import {makeStyles} from '@material-ui/core'
 import Room from './Room'
 import './Rooms.css'
 
+type ChosenRoomType={
+    name: string,
+     id: number, 
+     numOfPeople: number
+}
+
+
 const useStyles = makeStyles( theme => ({
     master:{
         backgroundColor: '#DFE0E2'
@@ -15,15 +22,15 @@ const useStyles = makeStyles( theme => ({
 const Rooms = () => {
     const classes = useStyles()
 
-    const [rooms, setRooms] = useState([])
-    const [chosenRoom, setChosenRoom] = useState({})
+    const [rooms, setRooms] = useState<Array<ChosenRoomType>>([])
+    const [chosenRoom, setChosenRoom] = useState<ChosenRoomType>({})
 
     useEffect(() => {
-        setRooms([{ name: 'Room1', id: 1 }, { name: 'Room2', id: 2 }, { name: 'Room3', id: 3 }])
+        setRooms([{ name: 'Room1', id: 1, numOfPeople: 10}, { name: 'Room2', id: 2, numOfPeople: 10 }, { name: 'Room3', id: 3, numOfPeople: 10 }])
     }, [])
 
-    const displayChosenRoom = (id) => () => {
-        let chosenRoom = rooms.find(room => room.id === id)
+    const displayChosenRoom = (id: number) => () => {
+        let chosenRoom: ChosenRoomType | any =  rooms.find(room => room.id === id) 
         setChosenRoom(chosenRoom)
     }
 
